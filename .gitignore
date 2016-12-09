@@ -1,0 +1,4 @@
+*.o
+*~
+mysh
+echo_z
