@@ -5,7 +5,7 @@
 ** Login   <jacobin_s@epitech.net>
 ** 
 ** Started on  Thu Oct 13 09:30:59 2016 Sébastien Jacobin
-** Last update Sun Dec  4 23:43:02 2016 Sébastien Jacobin
+** Last update Fri Dec  9 19:55:54 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -30,13 +30,14 @@ char	**my_str_to_wordtab(char *str)
 	  res[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
 	  while (check(str, e) == 1)
 	    res[i][o++] = str[e++];
+	  res[i][o] = 0;
 	  i = i + 1;
 	}
       o = 0;
       if (str[e] != '\0')
 	e = e + 1;
     }
-  res[nb_words(str)] = '\0';
+  res[nb_words(str)] = NULL;
   return (res);
 }
 

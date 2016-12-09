@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Fri Dec  9 17:25:19 2016 Sébastien Jacobin
-** Last update Fri Dec  9 17:47:46 2016 Sébastien Jacobin
+** Last update Fri Dec  9 19:57:28 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -49,7 +49,7 @@ void	close_all(int *fd, int nb)
   int	i;
 
   i = 0;
-  while (i < nb + 1)
+  while (i < nb)
     close(fd[i++]);
 }
 

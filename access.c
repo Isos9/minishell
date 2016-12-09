@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Dec  6 11:37:59 2016 Sébastien Jacobin
-** Last update Tue Dec  6 13:08:05 2016 Sébastien Jacobin
+** Last update Fri Dec  9 19:39:08 2016 Sébastien Jacobin
 */
 
 #include <sys/types.h>
@@ -25,4 +25,5 @@ char	*exec_file(char	*name, int *result)
     }
   else if ((*result = access(name, F_OK)) >= 0)
     return (name);
+  return (NULL);
 }

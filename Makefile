@@ -5,8 +5,10 @@
 ## Login   <sebastien.jacobin@epitech.net>
 ## 
 ## Started on  Sun Dec  4 02:29:28 2016 Sébastien Jacobin
-## Last update Fri Dec  9 17:26:21 2016 Sébastien Jacobin
+## Last update Fri Dec  9 19:37:20 2016 Sébastien Jacobin
 ##
+
+CC	= gcc -g -W -Wall -Wextra
 
 SRC	=	get_next_line.c	\
 		my_putchar.c	\
@@ -29,7 +31,7 @@ NAME	=	mysh
 CFLAGS	=	-I include/
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) 
 
 all:	$(NAME)
 
