@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 17:48:49 2016 Sébastien Jacobin
-** Last update Sun Dec 18 02:16:32 2016 Sébastien Jacobin
+** Last update Sun Dec 18 11:48:48 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -26,7 +26,7 @@ builtin_t	*init_builtins()
   builtin_t	*res;
 
   res = malloc(sizeof(builtin_t) * 6);
-  res[0] = new_built("cd", chdir);
+  res[0] = new_built("cd", (void (*)())chdir);
   res[1] = new_built("exit", exit);
   res[2] = new_built("env", my_env);
   res[3] = new_built("setenv", my_setenv);

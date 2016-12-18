@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Nov 22 14:13:08 2016 Sébastien Jacobin
-** Last update Sun Dec 18 02:04:08 2016 Sébastien Jacobin
+** Last update Sun Dec 18 11:57:19 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -58,7 +58,6 @@ void	exec_child(char **args, char **envp, int *result)
 int	exec_cmd(char *str, char ***envp)
 {
   char	**args;
-  pid_t	pid;
   int	result;
 
   args = my_str_to_wordtab(str);
