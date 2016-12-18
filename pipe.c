@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Dec  6 14:44:05 2016 Sébastien Jacobin
-** Last update Fri Dec  9 19:27:43 2016 Sébastien Jacobin
+** Last update Sat Dec 17 17:35:20 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -20,7 +20,7 @@ int	count_pipe(char **cmd)
 
   i = 0;
   e = 0;
-  while (cmd[i] != NULL)
+  while (cmd && cmd[i] != NULL)
     if (my_strcmp(cmd[i++], "|") == 0)
       e = e + 1;
   return (e);
@@ -32,13 +32,17 @@ char	**get_cmd(char ***cmd)
   char	**res;
 
   i = 0;
-  res = malloc(sizeof(char*) * (my_ptrlen(cmd[0]) + 1));
-  while (cmd[0][i] && my_strcmp(cmd[0][i], "|") != 0)
+  if (cmd[0] != NULL)
     {
-      res[i] = cmd[0][i];
-      i = i + 1;
+      res = malloc(sizeof(char*) * (my_ptrlen(cmd[0]) + 1));
+      while (cmd[0][i] && my_strcmp(cmd[0][i], "|") != 0)
+	{
+	  res[i] = cmd[0][i];
+	  i = i + 1;
+	}
+      res[i] = NULL;
+      cmd[0] = cmd[0] + i + 1;
+      return (res);
     }
-  res[i] = NULL;
-  cmd[0] = cmd[0] + i + 1;
-  return (res);
+  return (NULL);
 }

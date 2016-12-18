@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 03:17:52 2016 Sébastien Jacobin
-** Last update Fri Dec  9 19:56:44 2016 Sébastien Jacobin
+** Last update Sun Dec 18 01:33:15 2016 Sébastien Jacobin
 */
 
 #include <unistd.h>
@@ -23,12 +23,12 @@ char	*get_var_path(char **envp)
   e = 0;
   j = 0;
   var = malloc(sizeof(char) * 6);
-  while (*envp != NULL)
+  while (envp[j] != NULL)
     {
       i = 0;
       while (i < 5 && envp[j][i] != '=')
 	  var[i] = envp[j][i++];
-      var[i++] = '\0';
+      var[i] = '\0';
       if (my_strcmp(var, "PATH") == 0)
 	{
 	  var = malloc(sizeof(char) * (my_strlen(envp[j]) + 1));
@@ -55,7 +55,7 @@ char	*get_path(char *cmd, char **envp, int *result)
     return (exec_file(cmd, result));
   var = get_var_path(envp);
   res = malloc(sizeof(char) * (my_strlen(var) + 1));
-  while (var[e] != '\0')
+  while (var && var[e] != '\0')
     {
       i = 0;
       while (var[e] != ':' && var[e] != '\0')
@@ -66,5 +66,6 @@ char	*get_path(char *cmd, char **envp, int *result)
       if ((*result = access(my_strcat(res, cmd), F_OK)) >= 0)
 	return (my_strcat(res, cmd));
     }
+  *result = -1;
   return (NULL);
 }

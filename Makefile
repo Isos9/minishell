@@ -5,7 +5,7 @@
 ## Login   <sebastien.jacobin@epitech.net>
 ## 
 ## Started on  Sun Dec  4 02:29:28 2016 Sébastien Jacobin
-## Last update Sat Dec 10 14:40:34 2016 Sébastien Jacobin
+## Last update Sun Dec 18 02:51:10 2016 Sébastien Jacobin
 ##
 
 CC	= gcc
@@ -22,7 +22,9 @@ SRC	=	get_next_line.c	\
 		access.c	\
 		pipe.c	\
 		my_ptrlen.c	\
-		my_fork.c
+		my_fork.c	\
+		builtin.c	\
+		env.c
 
 OBJ	=	$(SRC:.c=.o)
 

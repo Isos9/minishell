@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Nov 22 14:13:08 2016 Sébastien Jacobin
-** Last update Fri Dec  9 19:55:22 2016 Sébastien Jacobin
+** Last update Sun Dec 18 02:04:08 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -18,6 +18,13 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "my.h"
+
+char	**check_cmd(char **s)
+{
+  if (my_strcmp(s[0], "|") == 0)
+    return (NULL);
+  return (s);
+}
 
 void	exec_child(char **args, char **envp, int *result)
 {
@@ -48,20 +55,23 @@ void	exec_child(char **args, char **envp, int *result)
   forks_waits(nb_pipe * 2);
 }
 
-int	exec_cmd(char *str, char **envp)
+int	exec_cmd(char *str, char ***envp)
 {
   char	**args;
   pid_t	pid;
   int	result;
 
   args = my_str_to_wordtab(str);
-  if (my_strcmp(*args, "cd") == 0)
-    result = chdir(args[1]);
-  else if (my_strcmp(*args, "exit") == 0)
-    exit(0);
+  if (check_builtin(*args))
+    {
+      exec_builtin(*args, args[1], envp);
+      result = 0;
+    }  
   else
     {
-      exec_child(args, envp, &result);
+      if ((args = check_cmd(args)) == NULL)
+	return ((result = -1));
+      exec_child(args, envp[0], &result);
     }
   return (result);
 }
@@ -74,7 +84,7 @@ int	main(int ac, char **av, char **envp)
   my_putstr("$> ");
   while ((s = get_next_line(0)))
     {
-      if (my_strlen(s) > 0 && exec_cmd(s, envp) < 0)
+      if (my_strlen(s) > 0 && exec_cmd(s, &envp) < 0)
   	{
   	  my_putstr("command not found: ");
   	  my_putstr(s);
