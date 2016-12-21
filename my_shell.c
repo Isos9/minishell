@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Nov 22 14:13:08 2016 Sébastien Jacobin
-** Last update Sun Dec 18 11:57:19 2016 Sébastien Jacobin
+** Last update Wed Dec 21 23:07:47 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -21,8 +21,17 @@
 
 char	**check_cmd(char **s)
 {
+  int	i;
+
+  i = 0;
   if (my_strcmp(s[0], "|") == 0)
     return (NULL);
+  while (s[i])
+    {
+      if (my_strcmp(s[i], "|") == 0 && s[i + 1] == NULL)
+	return (NULL);
+      i = i + 1;
+    }
   return (s);
 }
 
@@ -68,6 +77,7 @@ int	exec_cmd(char *str, char ***envp)
     }  
   else
     {
+      result = 0;
       if ((args = check_cmd(args)) == NULL)
 	return ((result = -1));
       exec_child(args, envp[0], &result);
@@ -80,7 +90,8 @@ int	main(int ac, char **av, char **envp)
   char	*s;
 
   signal(SIGINT, signal_cc);
-  my_putstr("$> ");
+  my_putstr(get_var_env(envp, "USER"));
+  my_putstr(" & $> ");
   while ((s = get_next_line(0)))
     {
       if (my_strlen(s) > 0 && exec_cmd(s, &envp) < 0)
@@ -89,7 +100,8 @@ int	main(int ac, char **av, char **envp)
   	  my_putstr(s);
   	  my_putstr("\n");
   	}
-      my_putstr("$> ");
+      my_putstr(get_var_env(envp, "USER"));
+      my_putstr(" & $> ");
     }
   return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 02:38:45 2016 Sébastien Jacobin
-** Last update Sun Dec 18 02:11:58 2016 Sébastien Jacobin
+** Last update Tue Dec 20 15:58:32 2016 Sébastien Jacobin
 */
 
 #ifndef MY_H
@@ -31,7 +31,7 @@ int	nb_words(char *str);
 int	check(char *str, int e);
 int	my_strcmp(char *s1, char *s2);
 int	my_strlen(char *str);
-char	*get_var_path(char **envp);
+char	*get_var_env(char **envp, char *env_var);
 void	exec_child(char **args, char **envp, int *result);
 int	count_pipe(char **cmd);
 char	*get_path(char *cmd, char **envp, int *result);

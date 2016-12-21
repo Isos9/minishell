@@ -5,10 +5,10 @@
 ## Login   <sebastien.jacobin@epitech.net>
 ## 
 ## Started on  Sun Dec  4 02:29:28 2016 Sébastien Jacobin
-## Last update Sun Dec 18 12:03:41 2016 Sébastien Jacobin
+## Last update Tue Dec 20 12:56:15 2016 Sébastien Jacobin
 ##
 
-CC	= gcc
+CC	= gcc -g
 
 SRC	=	get_next_line.c	\
 		my_putchar.c	\
