@@ -5,18 +5,18 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Dec  6 19:41:38 2016 Sébastien Jacobin
-** Last update Sat Dec 17 17:36:24 2016 Sébastien Jacobin
+** Last update Sun Dec 25 22:19:32 2016 Sébastien Jacobin
 */
 
 #include <unistd.h>
 #include "my.h"
 
-int	my_ptrlen(char	**cmd)
+int	my_ptrlen(char	**cmd, char *lim)
 {
   int	i;
 
   i = 0;
-  while (cmd && cmd[i] && (my_strcmp(cmd[i], "|") != 0))
+  while (cmd && cmd[i] && (my_strcmp(cmd[i], lim) != 0))
     i = i + 1;
   return (i);
 }

@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Nov 22 14:13:08 2016 Sébastien Jacobin
-** Last update Wed Dec 21 23:07:47 2016 Sébastien Jacobin
+** Last update Sun Dec 25 22:36:14 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -37,7 +37,7 @@ char	**check_cmd(char **s)
 
 void	exec_child(char **args, char **envp, int *result)
 {
-  int  fd[2 * count_pipe(args)];
+  int  fd[2 * count_lim(args, "|")];
   char	**cmd;
   char	*exec;
   int	nb_pipe;
@@ -45,11 +45,11 @@ void	exec_child(char **args, char **envp, int *result)
   int	e;
 
   params_value(&i, &e, 0, 1);
-  nb_pipe = count_pipe(args);
+  nb_pipe = count_lim(args, "|");
   make_pipes(fd, nb_pipe * 2);
   while (i <= nb_pipe)
     {
-      cmd = get_cmd(&args);
+      cmd = get_cmd(&args, "|");
       exec = get_path(*cmd, envp, result);
       if (*result == 0)
 	if (fork() == 0)
@@ -66,21 +66,28 @@ void	exec_child(char **args, char **envp, int *result)
 
 int	exec_cmd(char *str, char ***envp)
 {
+  int	i;
+  char	**cmd;
   char	**args;
   int	result;
+  int	nb_break;
 
+  i = 0;
   args = my_str_to_wordtab(str);
-  if (check_builtin(*args))
+  nb_break = count_lim(args, ";");
+  while (*args && i < nb_break + 1)
     {
-      exec_builtin(*args, args[1], envp);
-      result = 0;
-    }  
-  else
-    {
-      result = 0;
-      if ((args = check_cmd(args)) == NULL)
-	return ((result = -1));
-      exec_child(args, envp[0], &result);
+      cmd = get_cmd(&args, ";");
+      if (check_builtin(*cmd))
+	exec_builtin(*cmd, cmd[1], envp, &result);
+      else
+	{
+	  result = 0;
+	  if ((cmd = check_cmd(cmd)) == NULL)
+	    return ((result = -1));
+	  exec_child(cmd, envp[0], &result);
+	}
+      i = i + 1;
     }
   return (result);
 }
@@ -90,8 +97,9 @@ int	main(int ac, char **av, char **envp)
   char	*s;
 
   signal(SIGINT, signal_cc);
+  my_putstr("[");
   my_putstr(get_var_env(envp, "USER"));
-  my_putstr(" & $> ");
+  my_putstr("]$> ");
   while ((s = get_next_line(0)))
     {
       if (my_strlen(s) > 0 && exec_cmd(s, &envp) < 0)
@@ -100,8 +108,9 @@ int	main(int ac, char **av, char **envp)
   	  my_putstr(s);
   	  my_putstr("\n");
   	}
+      my_putstr("[");
       my_putstr(get_var_env(envp, "USER"));
-      my_putstr(" & $> ");
+      my_putstr("]$> ");
     }
   return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 17:48:49 2016 Sébastien Jacobin
-** Last update Sun Dec 18 11:48:48 2016 Sébastien Jacobin
+** Last update Sun Dec 25 23:51:33 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -51,12 +51,13 @@ int	check_builtin(char *cmd)
   return (0);
 }
 
-void	exec_builtin(char *cmd, char *arg, char ***envp)
+void	exec_builtin(char *cmd, char *arg, char ***envp, int *result)
 {
   int	i;
   builtin_t	*builts;
 
   i = 0;
+  *result = 0;
   builts = init_builtins();
   while (builts[i].builtin != NULL)
     {
@@ -65,7 +66,8 @@ void	exec_builtin(char *cmd, char *arg, char ***envp)
       else if (my_strcmp(cmd, builts[i].name) == 0 &&
 	       (my_strcmp(cmd, "setenv") == 0 || my_strcmp(cmd, "unsetenv") == 0))
 	builts[i].builtin(arg, envp);
-      else if (my_strcmp(cmd, builts[i].name) == 0 && my_strcmp(cmd, "exit") == 0)
+      else if (my_strcmp(cmd, builts[i].name) == 0
+	       && my_strcmp(cmd, "exit") == 0)
 	builts[i].builtin(0);
       else if (my_strcmp(cmd, builts[i].name) == 0)
 	builts[i].builtin(arg);

@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 03:17:52 2016 Sébastien Jacobin
-** Last update Tue Dec 20 15:58:47 2016 Sébastien Jacobin
+** Last update Sat Dec 24 21:05:28 2016 Sébastien Jacobin
 */
 
 #include <unistd.h>
@@ -66,6 +66,6 @@ char	*get_path(char *cmd, char **envp, int *result)
       if (((*result = access(my_strcat(res, cmd), F_OK)) >= 0))
 	return (my_strcat(res, cmd));
     }
-  *result = -1;
-  return (NULL);
+  res = ((*result = access(cmd, F_OK)) >= 0) ? cmd : NULL;
+  return (res);
 }

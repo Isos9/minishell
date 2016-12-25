@@ -5,7 +5,7 @@
 ** Login   <jacobin_s@epitech.net>
 ** 
 ** Started on  Thu Oct 13 09:30:59 2016 Sébastien Jacobin
-** Last update Fri Dec  9 19:55:54 2016 Sébastien Jacobin
+** Last update Sun Dec 25 23:52:07 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -16,28 +16,21 @@ char	**my_str_to_wordtab(char *str)
 {
   int	i;
   int	e;
-  int	o;
+  int	nb_word;
   char	**res;
 
   i = 0;
   e = 0;
-  o = 0;
-  res = malloc(sizeof(char *) * (nb_words(str) + 1));
+  nb_word = nb_words(str);
+  if ((res = malloc(sizeof(char *) * (nb_word + 1))) == NULL)
+    return (NULL);
   while (str[e] != '\0')
     {
-      if (check(str, e) == 1)
-	{
-	  res[i] = malloc(sizeof(char) * (my_strlen(str) + 1));
-	  while (check(str, e) == 1)
-	    res[i][o++] = str[e++];
-	  res[i][o] = 0;
-	  i = i + 1;
-	}
-      o = 0;
-      if (str[e] != '\0')
-	e = e + 1;
+      if (check(str[e], 1))
+	res[i] = insert_word(str, &e, &i);
+      e = (str[e] != '\0' && str[e] <= ' ') ? e + 1 : e;
     }
-  res[nb_words(str)] = NULL;
+  res[nb_word] = NULL;
   return (res);
 }
 
@@ -50,25 +43,57 @@ int	nb_words(char *str)
   nb = 0;
   while (str && str[e] != '\0')
     {
-      while (check(str, e) == 1)
+      while (check(str[e], 1))
 	{
-	  if (check(str, e + 1) != 1)
-	    {
-	      nb = nb + 1;
-	    }
+	  if (str[e + 1] == '|' || str[e + 1] == ';'
+	      || (e > 0 && str[e - 1] == '|' && str[e] > ' ')
+	      || (e > 0 && str[e - 1] == ';' && str[e] > ' ')
+	      || (!check(str[e + 1], 1)))
+	    nb = nb + 1;
 	  e = e + 1;
 	}
-      if (str[e] != '\0')
-	{
-	  e = e + 1;
-	}
+      if (str[e] != '\0' && str[e] <= ' ')
+	e = e + 1;
     }
   return (nb);
 }
 
-int	check(char *str, int e)
+int	check(char c, int  state)
 {
-  if (str[e] > 32)
+  if (state)
+    {
+      if (c > ' ')
+  	return (1);
+    }
+  else
+    if (c > ' ' && c != '|' && c != ';')
       return (1);
   return (0);
+}
+
+char	*insert_word(char *str, int *e, int *i)
+{
+  int	o;
+  char	*res;
+
+  o = 0;
+  if ((res = malloc(sizeof(char) * (my_strlen(&str[*e]) + 1))) == NULL)
+    return (NULL);
+  if (str[*e] == '|' || str[*e] == ';')
+    {
+      res[o] = str[*e];
+      res[o + 1] = 0;
+      *e = *e + 1;
+    }
+  else
+    {
+      while (check(str[*e], 0))
+	{
+	  res[o++] = str[*e];
+	  *e = *e + 1;
+	}
+      res[o] = 0;
+    }
+  *i = *i + 1;
+  return (res);
 }

@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 18:19:36 2016 Sébastien Jacobin
-** Last update Sun Dec 18 11:14:32 2016 Sébastien Jacobin
+** Last update Sun Dec 25 23:52:17 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -24,7 +24,7 @@ void	my_unsetenv(char *arg, char ***env)
   j = 0;
   var = malloc(sizeof(char) * (my_strlen(arg) + 1));
   res = malloc(sizeof(char*) * my_ptrlen(env[0]) + 1);
-  while(env[0][j])
+  while (env[0][j])
     {
       e = 0;
       while (e < my_strlen(arg))
@@ -38,7 +38,7 @@ void	my_unsetenv(char *arg, char ***env)
       j = j + 1;
     }
   res[i] = NULL;
-  env[0] = res; 
+  env[0] = res;
 }
 
 void	my_setenv(char *arg, char ***env)
