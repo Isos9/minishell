@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 03:17:52 2016 Sébastien Jacobin
-** Last update Sat Dec 24 21:05:28 2016 Sébastien Jacobin
+** Last update Mon Dec 26 00:36:19 2016 Sébastien Jacobin
 */
 
 #include <unistd.h>
@@ -38,7 +38,7 @@ char	*get_var_env(char **envp, char *env_var)
 	}
       envp = envp + 1;
     }
-  return (" ");
+  return ("");
 }
 
 char	*get_path(char *cmd, char **envp, int *result)

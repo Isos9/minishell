@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 02:38:45 2016 Sébastien Jacobin
-** Last update Sun Dec 25 22:20:31 2016 Sébastien Jacobin
+** Last update Mon Dec 26 00:46:13 2016 Sébastien Jacobin
 */
 
 #ifndef MY_H
@@ -42,7 +42,8 @@ void	close_all(int *fd, int nb);
 void	my_fork(int *fd, int i, int e, int nb_pipe);
 void	params_value(int *i, int *e, int nb_pipe, int state);
 char	**get_cmd(char ***cmd, char *lim);
-int	my_ptrlen(char	**cmd, char *lim);
+int	my_ptrlen(char	**cmd);
+int	my_ptrlen_lim(char **cmd, char *lim);
 void	my_env(char **envp);
 void	my_setenv(char *arg, char ***env);
 void	my_unsetenv(char *arg, char ***env);

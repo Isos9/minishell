@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Dec  6 14:44:05 2016 Sébastien Jacobin
-** Last update Sun Dec 25 22:29:55 2016 Sébastien Jacobin
+** Last update Mon Dec 26 00:46:49 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -34,7 +34,7 @@ char	**get_cmd(char ***cmd, char *lim)
   i = 0;
   if (cmd[0] != NULL)
     {
-      res = malloc(sizeof(char*) * (my_ptrlen(cmd[0], lim) + 1));
+      res = malloc(sizeof(char*) * (my_ptrlen_lim(cmd[0], lim) + 1));
       while (cmd[0][i] && my_strcmp(cmd[0][i], lim) != 0)
 	{
 	  res[i] = cmd[0][i];

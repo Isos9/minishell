@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 18:19:36 2016 Sébastien Jacobin
-** Last update Sun Dec 25 23:52:17 2016 Sébastien Jacobin
+** Last update Mon Dec 26 00:40:53 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -47,7 +47,8 @@ void	my_setenv(char *arg, char ***env)
   char	**res;
 
   i = 0;
-  res = malloc(sizeof(char*) *(my_ptrlen(env[0]) + 2));
+  if ((res = malloc(sizeof(char*) *(my_ptrlen(env[0]) + 2))) == NULL)
+    return ((void)NULL);
   while (env[0][i])
     {
       res[i] = env[0][i];
