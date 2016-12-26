@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 03:17:52 2016 Sébastien Jacobin
-** Last update Mon Dec 26 00:36:19 2016 Sébastien Jacobin
+** Last update Mon Dec 26 22:01:26 2016 Sébastien Jacobin
 */
 
 #include <unistd.h>
@@ -38,7 +38,7 @@ char	*get_var_env(char **envp, char *env_var)
 	}
       envp = envp + 1;
     }
-  return ("");
+  return (NULL);
 }
 
 char	*get_path(char *cmd, char **envp, int *result)
@@ -49,10 +49,10 @@ char	*get_path(char *cmd, char **envp, int *result)
   char	*res;
 
   e = 0;
-  *result = -1;
   if (cmd[0] == '.')
     return (exec_file(cmd, result));
-  var = get_var_env(envp, "PATH");
+  if ((var = get_var_env(envp, "PATH")) == NULL)
+    res = ((*result = access(cmd, F_OK)) >= 0) ? cmd : NULL;
   if ((res = malloc(sizeof(char) * (my_strlen(var) + 1))) == NULL)
     return (NULL);
   while (var && var[e] != '\0')
@@ -62,7 +62,7 @@ char	*get_path(char *cmd, char **envp, int *result)
 	res[i++] = var[e++];
       e = e + 1;
       res[i] = '\0';
-      res = (res[i -1] != '/' && cmd[0] != '/') ? my_strcat(res, "/") : res;
+      res =  my_strcat(res, "/");
       if (((*result = access(my_strcat(res, cmd), F_OK)) >= 0))
 	return (my_strcat(res, cmd));
     }

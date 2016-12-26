@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Nov 22 14:13:08 2016 Sébastien Jacobin
-** Last update Sun Dec 25 22:36:14 2016 Sébastien Jacobin
+** Last update Mon Dec 26 23:04:22 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -24,13 +24,18 @@ char	**check_cmd(char **s)
   int	i;
 
   i = 0;
-  if (my_strcmp(s[0], "|") == 0)
-    return (NULL);
-  while (s[i])
+  if (s)
     {
-      if (my_strcmp(s[i], "|") == 0 && s[i + 1] == NULL)
+      if (my_strcmp(s[0], "|") == 0 ||  my_strcmp(s[0], ";") == 0)
 	return (NULL);
-      i = i + 1;
+      while (s[i])
+	{
+	  if (my_strcmp(s[i], "|") == 0 && s[i + 1] == NULL)
+	    return (NULL);
+	  if (s[i + 1] &&  my_strcmp(s[i], ";") == 0 && my_strcmp(s[i + 1], ";") == 0)
+	    return (NULL);
+	  i = i + 1;
+	}
     }
   return (s);
 }
@@ -75,6 +80,8 @@ int	exec_cmd(char *str, char ***envp)
   i = 0;
   args = my_str_to_wordtab(str);
   nb_break = count_lim(args, ";");
+  if ((args = check_cmd(args)) == NULL)
+    return ((result = -1));
   while (*args && i < nb_break + 1)
     {
       cmd = get_cmd(&args, ";");
@@ -83,8 +90,6 @@ int	exec_cmd(char *str, char ***envp)
       else
 	{
 	  result = 0;
-	  if ((cmd = check_cmd(cmd)) == NULL)
-	    return ((result = -1));
 	  exec_child(cmd, envp[0], &result);
 	}
       i = i + 1;

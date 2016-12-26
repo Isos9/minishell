@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Dec  6 14:44:05 2016 Sébastien Jacobin
-** Last update Mon Dec 26 00:46:49 2016 Sébastien Jacobin
+** Last update Mon Dec 26 22:57:28 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -42,7 +42,7 @@ char	**get_cmd(char ***cmd, char *lim)
 	}
       res[i] = NULL;
       if (cmd[0][i] && my_strcmp(cmd[0][i], lim) == 0)
-	cmd[0] = cmd[0] + i + 1;
+	cmd[0] = cmd[0] + i + 1;;
       return (res);
     }
   return (NULL);
