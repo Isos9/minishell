@@ -5,7 +5,7 @@
 ## Login   <sebastien.jacobin@epitech.net>
 ## 
 ## Started on  Sun Dec  4 02:29:28 2016 Sébastien Jacobin
-## Last update Thu Dec 29 01:31:33 2016 Sébastien Jacobin
+## Last update Thu Dec 29 22:53:01 2016 Sébastien Jacobin
 ##
 
 CC	= gcc
@@ -25,7 +25,8 @@ SRC	=	get_next_line.c	\
 		path.c	\
 		access.c	\
 		env.c	\
-		check.c
+		check.c	\
+		my_getnbr.c
 
 
 OBJ	=	$(SRC:.c=.o)

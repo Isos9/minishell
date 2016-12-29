@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 02:38:45 2016 Sébastien Jacobin
-** Last update Thu Dec 29 00:22:31 2016 Sébastien Jacobin
+** Last update Thu Dec 29 22:54:03 2016 Sébastien Jacobin
 */
 
 #ifndef MY_H
@@ -58,5 +58,9 @@ char	*insert_word(char *str, int *e, int *i);
 builtin_t	new_built(char *name, builtin_fct builtin);
 builtin_t	*init_builtins();
 char	**check_cmd(char **s);
+int	check_neg_str(char *str);
+int	convertnbr(char *str);
+int	my_getnbr(char  *str);
+void	my_exit(char *arg);
 
 #endif /*MY_H*/

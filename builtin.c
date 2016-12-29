@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 17:48:49 2016 Sébastien Jacobin
-** Last update Wed Dec 28 00:50:55 2016 Sébastien Jacobin
+** Last update Thu Dec 29 22:54:08 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -27,7 +27,7 @@ builtin_t	*init_builtins()
 
   res = malloc(sizeof(builtin_t) * 6);
   res[0] = new_built("cd", (void (*)())chdir);
-  res[1] = new_built("exit", exit);
+  res[1] = new_built("exit", my_exit);
   res[2] = new_built("env", my_env);
   res[3] = new_built("setenv", my_setenv);
   res[4] = new_built("unsetenv", my_unsetenv);
@@ -50,11 +50,16 @@ void	exec_builtin(char *cmd, char *arg, char ***envp, int *result)
       else if (my_strcmp(cmd, builts[i].name) == 0 &&
 	       (my_strcmp(cmd, "setenv") == 0 || my_strcmp(cmd, "unsetenv") == 0))
 	builts[i].builtin(arg, envp);
-      else if (my_strcmp(cmd, builts[i].name) == 0
-	       && my_strcmp(cmd, "exit") == 0)
-	builts[i].builtin(0);
       else if (my_strcmp(cmd, builts[i].name) == 0)
 	builts[i].builtin(arg);
       i = i + 1;
     }
+}
+
+void	my_exit(char *arg)
+{
+  if (!arg)
+    exit(0);
+  else
+    exit(my_getnbr(arg));
 }
