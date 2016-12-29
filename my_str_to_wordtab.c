@@ -5,7 +5,7 @@
 ** Login   <jacobin_s@epitech.net>
 ** 
 ** Started on  Thu Oct 13 09:30:59 2016 Sébastien Jacobin
-** Last update Sun Dec 25 23:52:07 2016 Sébastien Jacobin
+** Last update Wed Dec 28 00:45:04 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -56,19 +56,6 @@ int	nb_words(char *str)
 	e = e + 1;
     }
   return (nb);
-}
-
-int	check(char c, int  state)
-{
-  if (state)
-    {
-      if (c > ' ')
-  	return (1);
-    }
-  else
-    if (c > ' ' && c != '|' && c != ';')
-      return (1);
-  return (0);
 }
 
 char	*insert_word(char *str, int *e, int *i)

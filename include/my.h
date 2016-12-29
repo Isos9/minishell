@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 02:38:45 2016 Sébastien Jacobin
-** Last update Mon Dec 26 00:46:13 2016 Sébastien Jacobin
+** Last update Thu Dec 29 00:22:31 2016 Sébastien Jacobin
 */
 
 #ifndef MY_H
@@ -31,7 +31,9 @@ int	nb_words(char *str);
 int	check(char c, int state);
 int	my_strcmp(char *s1, char *s2);
 int	my_strlen(char *str);
+int	my_strlen_lim(char *str, char lim);
 char	*get_var_env(char **envp, char *env_var);
+char	*get_var_name(char *envp, int *i);
 void	exec_child(char **args, char **envp, int *result);
 int	count_lim(char **cmd, char *lim);
 char	*get_path(char *cmd, char **envp, int *result);
@@ -47,11 +49,14 @@ int	my_ptrlen_lim(char **cmd, char *lim);
 void	my_env(char **envp);
 void	my_setenv(char *arg, char ***env);
 void	my_unsetenv(char *arg, char ***env);
+void	insert_var(char *arg, char ***env);
 int	check_builtin(char *cmd);
+int	check_argenv(char *arg);
 void	exec_builtin(char *cmd, char *arg, char ***envp, int *result);
 void	signal_cc();
 char	*insert_word(char *str, int *e, int *i);
 builtin_t	new_built(char *name, builtin_fct builtin);
 builtin_t	*init_builtins();
+char	**check_cmd(char **s);
 
 #endif /*MY_H*/

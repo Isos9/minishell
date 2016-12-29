@@ -5,10 +5,10 @@
 ## Login   <sebastien.jacobin@epitech.net>
 ## 
 ## Started on  Sun Dec  4 02:29:28 2016 Sébastien Jacobin
-## Last update Sat Dec 24 23:57:49 2016 Sébastien Jacobin
+## Last update Thu Dec 29 01:31:33 2016 Sébastien Jacobin
 ##
 
-CC	= gcc -g
+CC	= gcc
 
 SRC	=	get_next_line.c	\
 		my_putchar.c	\
@@ -24,7 +24,8 @@ SRC	=	get_next_line.c	\
 		my_shell.c	\
 		path.c	\
 		access.c	\
-		env.c
+		env.c	\
+		check.c
 
 
 OBJ	=	$(SRC:.c=.o)

@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Tue Nov 22 14:13:08 2016 Sébastien Jacobin
-** Last update Mon Dec 26 23:04:22 2016 Sébastien Jacobin
+** Last update Wed Dec 28 00:50:53 2016 Sébastien Jacobin
 */
 
 #include <sys/wait.h>
@@ -18,27 +18,6 @@
 #include <stdlib.h>
 #include <signal.h>
 #include "my.h"
-
-char	**check_cmd(char **s)
-{
-  int	i;
-
-  i = 0;
-  if (s)
-    {
-      if (my_strcmp(s[0], "|") == 0 ||  my_strcmp(s[0], ";") == 0)
-	return (NULL);
-      while (s[i])
-	{
-	  if (my_strcmp(s[i], "|") == 0 && s[i + 1] == NULL)
-	    return (NULL);
-	  if (s[i + 1] &&  my_strcmp(s[i], ";") == 0 && my_strcmp(s[i + 1], ";") == 0)
-	    return (NULL);
-	  i = i + 1;
-	}
-    }
-  return (s);
-}
 
 void	exec_child(char **args, char **envp, int *result)
 {

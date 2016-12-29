@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 17:48:49 2016 Sébastien Jacobin
-** Last update Sun Dec 25 23:51:33 2016 Sébastien Jacobin
+** Last update Wed Dec 28 00:50:55 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -33,22 +33,6 @@ builtin_t	*init_builtins()
   res[4] = new_built("unsetenv", my_unsetenv);
   res[5] = new_built("", NULL);
   return (res);
-}
-
-int	check_builtin(char *cmd)
-{
-  int	i;
-  builtin_t	*builts;
-
-  i = 0;
-  builts = init_builtins();
-  while (builts[i].builtin != NULL)
-    {
-      if (my_strcmp(cmd, builts[i].name) == 0)
-	return (1);
-      i = i + 1;
-    }
-  return (0);
 }
 
 void	exec_builtin(char *cmd, char *arg, char ***envp, int *result)

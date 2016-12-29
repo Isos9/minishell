@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sat Dec 17 18:19:36 2016 Sébastien Jacobin
-** Last update Mon Dec 26 00:40:53 2016 Sébastien Jacobin
+** Last update Thu Dec 29 01:23:05 2016 Sébastien Jacobin
 */
 
 #include <stdlib.h>
@@ -17,46 +17,51 @@ void	my_unsetenv(char *arg, char ***env)
   int	i;
   int	e;
   int	j;
-  char	*var;
   char	**res;
 
   i = 0;
   j = 0;
-  var = malloc(sizeof(char) * (my_strlen(arg) + 1));
-  res = malloc(sizeof(char*) * my_ptrlen(env[0]) + 1);
-  while (env[0][j])
+  if ((res = malloc(sizeof(char*) * my_ptrlen(env[0]) + 1)) == NULL)
+    return ((void)NULL);
+  while (arg && env[0][j])
     {
       e = 0;
-      while (e < my_strlen(arg))
-	var[e] = env[0][j][e++];
-      var[e] = '\0';
-      if (my_strcmp(var, arg) != 0)
-	{
-	  res[i] = env[0][j];
-	  i = i + 1;
-	}
+      if (my_strcmp(get_var_name(env[0][j], &e), arg) != 0)
+	res[i++] = env[0][j];
       j = j + 1;
     }
-  res[i] = NULL;
-  env[0] = res;
+  if (arg != NULL)
+    {
+      res[i] = NULL;
+      env[0] = res;
+    }
 }
 
 void	my_setenv(char *arg, char ***env)
 {
   int	i;
-  char	**res;
+  int	e;
+  char	*new;
 
   i = 0;
-  if ((res = malloc(sizeof(char*) *(my_ptrlen(env[0]) + 2))) == NULL)
-    return ((void)NULL);
-  while (env[0][i])
+  e = 0;
+  if (arg)
     {
-      res[i] = env[0][i];
-      i = i + 1;
+      if ((new = malloc(sizeof(char) * (my_strlen(arg) + 2))) == NULL)
+	return ((void)NULL);
+      while (arg[e])
+	{
+	  if (arg[e] != '$')
+	    new[i++] = arg[e];
+	  e = e + 1;
+	}
+      if (!check_argenv(arg))
+	new[i++] = '=';
+      new[i] = 0;
+      i = 0;
+      if ((get_var_env(env[0], get_var_name(new, &i))) == NULL)
+	insert_var(new, env);
     }
-  res[i] = arg;
-  res[i + 1] = NULL;
-  env[0] = res;
 }
 
 void	my_env(char **env)
@@ -72,16 +77,36 @@ void	my_env(char **env)
     }
 }
 
-int	check_argenv(char *arg)
+char	*get_var_name(char *envp, int *i)
+{
+  char	*res;
+
+  if ((res = malloc(sizeof(char) * (my_strlen_lim(envp, '=') + 1))) == NULL)
+    return (NULL);
+  while (envp[*i] != '=')
+    {
+      res[*i] = envp[*i];
+      *i = *i + 1;
+    }
+  res[*i] = 0;
+  *i = *i + 1;
+  return (res);
+}
+
+void	insert_var(char *arg, char ***env)
 {
   int	i;
+  char **res;
 
   i = 0;
-  while (arg[i] != '=')
+  if ((res = malloc(sizeof(char*) *(my_ptrlen(env[0]) + 2))) == NULL)
+    return ((void)NULL);
+  while (env[0][i])
     {
-      if (arg[i] <= 'A' && arg[i] >= 'Z' && arg[i] != '_')
-	return (0);
+      res[i] = env[0][i];
       i = i + 1;
     }
-  return (1);
+  res[i] = arg;
+  res[i + 1] = NULL;
+  env[0] = res;
 }

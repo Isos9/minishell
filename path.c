@@ -5,7 +5,7 @@
 ** Login   <sebastien.jacobin@epitech.net>
 ** 
 ** Started on  Sun Dec  4 03:17:52 2016 Sébastien Jacobin
-** Last update Mon Dec 26 22:01:26 2016 Sébastien Jacobin
+** Last update Thu Dec 29 01:20:36 2016 Sébastien Jacobin
 */
 
 #include <unistd.h>
@@ -20,17 +20,13 @@ char	*get_var_env(char **envp, char *env_var)
   char	*var;
 
   e = 0;
-  if ((var = malloc(sizeof(char) * (my_strlen(env_var) + 1))) == NULL)
-    return (NULL);
   while (*envp)
     {
       i = 0;
-      while (i < my_strlen(env_var) && envp[0][i] != '=')
-	  var[i] = envp[0][i++];
-      var[i++] = '\0';
-      if (my_strcmp(var, env_var) == 0)
+      if (my_strcmp(get_var_name(*envp, &i), env_var) == 0)
 	{
-	  var = malloc(sizeof(char) * (my_strlen(envp[0]) + 1));
+	  if ((var = malloc(sizeof(char) * (my_strlen(envp[0]) + 1))) == NULL)
+	    return (NULL);
 	  while (envp[0][i] != '\0')
 	    var[e++] = envp[0][i++];
 	  var[e] = '\0';
