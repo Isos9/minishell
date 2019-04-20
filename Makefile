@@ -10,30 +10,30 @@
 
 CC	= gcc
 
-SRC	=	get_next_line.c	\
-		my_putchar.c	\
-		my_putstr.c	\
-		my_strcmp.c	\
-		my_strlen.c	\
-		my_str_to_wordtab.c	\
-		signal.c	\
-		pipe.c	\
-		my_ptrlen.c	\
-		my_fork.c	\
-		builtin.c	\
-		my_shell.c	\
-		path.c	\
-		access.c	\
-		env.c	\
-		check.c	\
-		my_getnbr.c
+SRC	=	src/get_next_line.c	\
+		src/my_putchar.c	\
+		src/my_putstr.c	\
+		src/my_strcmp.c	\
+		src/my_strlen.c	\
+		src/my_str_to_wordtab.c	\
+		src/signal.c	\
+		src/pipe.c	\
+		src/my_ptrlen.c	\
+		src/my_fork.c	\
+		src/builtin.c	\
+		src/my_shell.c	\
+		src/path.c	\
+		src/access.c	\
+		src/env.c	\
+		src/check.c	\
+		src/my_getnbr.c
 
 
 OBJ	=	$(SRC:.c=.o)
 
 NAME	=	mysh
 
-CFLAGS	=	-I include/
+CFLAGS	=	-I include/ -Werror
 
 $(NAME):	$(OBJ)
 	$(CC) -o $(NAME) $(OBJ) 
